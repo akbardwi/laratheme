@@ -82,12 +82,12 @@ List of all themes:
 ```sh
 php artisan theme:list
 
-+----------+--------------+---------+----------+
-| Name     | Author       | Version | Parent   |
-+----------+--------------+---------+----------+
-| themeone | Akbardwi Ahamed | 1.1.0   |          |
-| themetwo | Akbardwi Ahamed | 1.0.0   | themeone |
-+----------+--------------+---------+----------+
++----------+---------------------+---------+----------+
+| Name     | Author              | Version | Parent   |
++----------+---------------------+---------+----------+
+| themeone | Akbar Dwi Syahputra | 1.1.0   |          |
+| themetwo | Akbar Dwi Syahputra | 1.0.0   | themeone |
++----------+---------------------+---------+----------+
 ```
 
 ## Example folder structure:
@@ -368,7 +368,7 @@ Clear config after runing `vendor publish` (see [Config section](#configuration)
 
 ## Credits
 
-- [Akbardwi Ahamed](https://github.com/akbardwi)
+- [Akbar Dwi Syahputra](https://github.com/akbardwi)
 - [All Contributors](../../contributors)
 
 ## Support for this project
