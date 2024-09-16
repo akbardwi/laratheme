@@ -4,5 +4,6 @@
   "description": "[DESCRIPTION]",
   "author": "[AUTHOR]",
   "version": "[VERSION]",
-  "parent": "[PARENT]"
+  "parent": "[PARENT]",
+  "screenshot": "screenshot.png"
 }

@@ -91,7 +91,7 @@ class ThemeGeneratorCommand extends Command
         $this->theme['name'] = strtolower($this->argument('name'));
 
         if (empty($this->theme['name'])) {
-            $this->theme['name'] = $this->ask('What is your theme name?');
+            $this->theme['name'] = Str::slug($this->ask('What is your theme name?'), '');
             if (empty($this->theme['name'])) {
                 $this->error('Theme is not Generated, Theme name required !!!');
 
@@ -112,7 +112,7 @@ class ThemeGeneratorCommand extends Command
         $createdThemePath = $this->themePath.'/'.$this->theme['name'];
 
         if ($this->files->isDirectory($createdThemePath)) {
-            return $this->error('Sorry Boss'.ucfirst($this->theme['name']).' Theme Folder Already Exist !!!');
+            return $this->error('Sorry Boss '.ucfirst($this->theme['name']).' Theme Folder Already Exist !!!');
         }
 
         $this->consoleAsk();
@@ -131,6 +131,7 @@ class ThemeGeneratorCommand extends Command
         }
 
         $this->createStubs($themeStubFiles, $createdThemePath);
+        $this->files->copy($this->themeStubPath.'/screenshot.png', $createdThemePath.'/screenshot.png');
 
         $this->info(ucfirst($this->theme['name']).' Theme Folder Successfully Generated !!!');
     }
@@ -158,7 +159,7 @@ class ThemeGeneratorCommand extends Command
 
         if ($this->confirm('Any parent theme?')) {
             $this->theme['parent'] = $this->ask('What is parent theme name?');
-            $this->theme['parent'] = strtolower($this->theme['parent']);
+            $this->theme['parent'] = Str::slug($this->theme['parent'], '');
         }
     }
 
