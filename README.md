@@ -368,10 +368,6 @@ Clear config after runing `vendor publish` (see [Config section](#configuration)
 
 ## Credits
 
+- [Shipu Ahamed](https://github.com/Shipu)
 - [Akbar Dwi Syahputra](https://github.com/akbardwi)
 - [All Contributors](../../contributors)
-
-## Support for this project
-Hey dude! Help me out for a couple of :beers:!
-
-[![Beerpay](https://beerpay.io/Akbardwi/laratheme/badge.svg?style=beer)](https://beerpay.io/Akbardwi/laratheme) [![Beerpay](https://beerpay.io/Akbardwi/laratheme/make-wish.svg?style=flat-square)](https://beerpay.io/Akbardwi/laratheme?focus=wish) 
