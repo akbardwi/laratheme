@@ -105,10 +105,12 @@ class LarathemeServiceProvider extends ServiceProvider
     {
         $this->registerThemeGeneratorCommand();
         $this->registerThemeListCommand();
+        $this->registerThemeRemoveCommand();
         // Assign commands.
         $this->commands(
             'theme.create',
-            'theme.list'
+            'theme.list',
+            'theme.remove'
         );
     }
 
@@ -132,6 +134,18 @@ class LarathemeServiceProvider extends ServiceProvider
     public function registerThemeListCommand()
     {
         $this->app->singleton('theme.list', ThemeListCommand::class);
+    }
+
+    /**
+     * Register theme remove command.
+     *
+     * @return void
+     */
+    public function registerThemeRemoveCommand()
+    {
+        $this->app->singleton('theme.remove', function ($app) {
+            return new \Akbardwi\Laratheme\Console\ThemeRemoveCommand($app['config'], $app['files']);
+        });
     }
 
     /**

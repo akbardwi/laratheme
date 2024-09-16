@@ -9,6 +9,7 @@ use Illuminate\View\ViewFinderInterface;
 use Noodlehaus\Config;
 use Akbardwi\Laratheme\Contracts\ThemeContract;
 use Akbardwi\Laratheme\Exceptions\ThemeNotFoundException;
+use Illuminate\Support\Facades\File;
 
 class Theme implements ThemeContract
 {
@@ -321,5 +322,32 @@ class Theme implements ThemeContract
             $this->finder->prependNamespace($themeInfo->get('type'), $viewPath);
         }
         $this->lang->addNamespace($themeInfo->get('name'), $langPath);
+    }
+
+    /**
+     * Remove theme.
+     *
+     * @return void
+     */
+    public function remove($themeName)
+    {
+        // Theme info
+        $themeInfo = $this->getThemeInfo($themeName);
+        // dd($themeInfo);
+
+        // Check that paths exist
+        $themePath = $themeInfo['path'];
+        if (!is_dir($themePath)) {
+            throw new ThemeNotFoundException($themeName);
+        }
+
+        // Check that no other theme uses to the same paths (ie a child theme)
+        foreach ($this->themes as $theme) {
+            if ($theme['parent'] == $themeName) {
+                throw new \Exception('Cannot delete a theme that is a parent theme to another theme');
+            }
+        }
+
+        File::deleteDirectory($themePath);
     }
 }
