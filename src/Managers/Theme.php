@@ -5,6 +5,7 @@ namespace Akbardwi\Laratheme\Managers;
 use Illuminate\Config\Repository;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Translation\Translator;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\View\ViewFinderInterface;
 use Noodlehaus\Config;
 use Akbardwi\Laratheme\Contracts\ThemeContract;
@@ -63,6 +64,20 @@ class Theme implements ThemeContract
     private $activeTheme = null;
 
     /**
+     * The filesystem instance.
+     *
+     * @var \Illuminate\Filesystem\Filesystem
+     */
+    protected $files;
+
+    /**
+     * The temporary path.
+     *
+     * @var string
+     */
+    protected $tempPath;
+
+    /**
      * Theme constructor.
      *
      * @param Container           $app
@@ -83,6 +98,10 @@ class Theme implements ThemeContract
         $this->basePath = $this->config['theme.theme_path'];
 
         $this->activeTheme = $this->config['theme.active'];
+
+        $this->tempPath = $this->packages_path('tmp');
+
+        $this->files = new Filesystem();
 
         $this->scanThemes();
     }
@@ -333,7 +352,6 @@ class Theme implements ThemeContract
     {
         // Theme info
         $themeInfo = $this->getThemeInfo($themeName);
-        // dd($themeInfo);
 
         // Check that paths exist
         $themePath = $themeInfo['path'];
@@ -349,5 +367,44 @@ class Theme implements ThemeContract
         }
 
         File::deleteDirectory($themePath);
+    }
+
+    public function createTempFolder()
+    {
+        $this->clearTempFolder();
+
+        $this->files->makeDirectory($this->tempPath);
+    }
+
+    public function clearTempFolder()
+    {
+        if ($this->files->exists($this->tempPath)) {
+
+            $this->files->deleteDirectory($this->tempPath);
+
+        }
+    }
+
+    public function packages_path($path = '')
+    {
+        return storage_path('themes'.DIRECTORY_SEPARATOR.$path);
+    }
+
+    public function tempPath()
+    {
+        return $this->tempPath;
+    }
+
+    public function theme_installed($themeName)
+    {
+        if (!$this->has($themeName)) {
+
+            return false;
+
+        }
+
+        $viewsPath = $this->get($themeName)['path'];
+        
+        return File::exists($viewsPath);
     }
 }

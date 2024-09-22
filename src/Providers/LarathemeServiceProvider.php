@@ -2,6 +2,8 @@
 
 namespace Akbardwi\Laratheme\Providers;
 
+use Akbardwi\Laratheme\Console\ThemeCreatePackage;
+use Akbardwi\Laratheme\Console\ThemeInstallPackage;
 use App;
 use File;
 use Illuminate\Support\ServiceProvider;
@@ -106,11 +108,15 @@ class LarathemeServiceProvider extends ServiceProvider
         $this->registerThemeGeneratorCommand();
         $this->registerThemeListCommand();
         $this->registerThemeRemoveCommand();
+        $this->app->singleton('theme.package', ThemeCreatePackage::class);
+        $this->app->singleton('theme.install', ThemeInstallPackage::class);
         // Assign commands.
         $this->commands(
             'theme.create',
             'theme.list',
-            'theme.remove'
+            'theme.remove',
+            'theme.package',
+            'theme.install'
         );
     }
 
