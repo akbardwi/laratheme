@@ -113,6 +113,9 @@ class ThemeInstallPackage extends Command
             // Remove Package
             $this->files->delete($package);
         } catch (\Exception $e) {
+            // Clear Temp Folder
+            Theme::clearTempFolder();
+            
             $this->error('Failed to install theme: ' . $e->getMessage());
         }
     }
