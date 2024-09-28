@@ -92,20 +92,9 @@ class ThemeInstallPackage extends Command
             $themeJson = json_decode($themeJson, true);
             $themePath = $this->config->get('theme.theme_path') . DIRECTORY_SEPARATOR . $themeJson['name'];
 
-            // Check if theme is already installed
-            if (Theme::theme_installed($themeJson['name'])) {
-                $this->error('Theme ' . $themeJson['name'] . ' is already installed');
-                Theme::clearTempFolder();
-                return;
-            }
-
-            // If paths don't exist, move theme from temp to target paths
-            if (!file_exists($themePath)) {
-                $this->files->move(Theme::tempPath(), $themePath);
-                $this->info('Theme ' . $themeJson['name'] . ' installed successfully');
-            } else {
-                $this->error('Theme ' . $themeJson['name'] . ' already exists');
-            }
+            // Install / Update Theme
+            $this->files->move(Theme::tempPath(), $themePath);
+            $this->info('Theme ' . $themeJson['name'] . ' installed successfully');
 
             // Clear Temp Folder
             Theme::clearTempFolder();
