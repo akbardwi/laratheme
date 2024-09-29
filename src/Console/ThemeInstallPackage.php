@@ -93,6 +93,9 @@ class ThemeInstallPackage extends Command
             $themePath = $this->config->get('theme.theme_path') . DIRECTORY_SEPARATOR . $themeJson['name'];
 
             // Install / Update Theme
+            if ($this->files->exists($themePath)) {
+                $this->files->deleteDirectory($themePath);
+            }
             $this->files->move(Theme::tempPath(), $themePath);
             $this->info('Theme ' . $themeJson['name'] . ' installed successfully');
 
