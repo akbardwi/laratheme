@@ -4,12 +4,12 @@ namespace Akbardwi\Laratheme\Providers;
 
 use Akbardwi\Laratheme\Console\ThemeCreatePackage;
 use Akbardwi\Laratheme\Console\ThemeInstallPackage;
-use App;
-use File;
-use Illuminate\Support\ServiceProvider;
 use Akbardwi\Laratheme\Console\ThemeListCommand;
 use Akbardwi\Laratheme\Contracts\ThemeContract;
 use Akbardwi\Laratheme\Managers\Theme;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\ServiceProvider;
 
 class LarathemeServiceProvider extends ServiceProvider
 {
